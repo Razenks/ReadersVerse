@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const header = document.getElementById('header');
     const main = document.getElementById('main');
     const menu_mobile = document.getElementById('mobileSidebar');
+    const footer = document.getElementById('footer');
+    const color_text = document.querySelector('.color-text');
 
     const themeButtons = document.querySelectorAll('.toggle-theme');
     const moons = document.querySelectorAll('.svg'); // ícones de lua
@@ -22,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         menu_mobile.classList.remove('bg-[#f7f7f7]');
         menu_mobile.classList.add('bg-[#1a1a1a]', 'text-white');
+
+        footer.classList.remove('bg-white');
+        footer.classList.add('bg-[#1f1f1f]', 'text-white');
 
         moons.forEach(icon => icon.classList.add('hidden'));
         suns.forEach(icon => icon.classList.remove('hidden'));
@@ -46,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         menu_mobile.classList.remove('bg-[#1a1a1a]', 'text-white');
         menu_mobile.classList.add('bg-[#f7f7f7]', 'text-gray-700');
+
+        footer.classList.add('bg-white');
+        footer.classList.remove('bg-[#1f1f1f]', 'text-white');
 
 
         moons.forEach(icon => icon.classList.remove('hidden'));

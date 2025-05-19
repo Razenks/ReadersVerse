@@ -2,16 +2,14 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "tailwind:init": "tailwindcss init -p"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.21",
+        "@tailwindcss/postcss": "^4.1.7",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^1.2.0",
         "lodash": "^4.17.19",
-        "postcss": "^8.5.3",
-        "tailwind": "^2.3.1",
-        "tailwindcss": "^4.1.6",
         "vite": "^6.3.5"
     },
     "name": "a1-readerverse",
@@ -23,5 +21,18 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "@popperjs/core": "^2.11.8",
+        "@tailwindcss/line-clamp": "^0.4.4",
+        "bootstrap": "^5.3.6"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Razenks/ReadersVerse.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Razenks/ReadersVerse/issues"
+    },
+    "homepage": "https://github.com/Razenks/ReadersVerse#readme"
 }
