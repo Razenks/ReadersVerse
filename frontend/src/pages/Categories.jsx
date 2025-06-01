@@ -6,7 +6,9 @@ export default function Categories() {
     return (
         <>
             <Header />
-            <Categories_user />
+            <main className="main bg-[#f7f7f7]" id="main" >
+                <Categories_user />
+            </main>
             <Footer />
         </>
     );

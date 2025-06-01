@@ -8,6 +8,7 @@ import Sign_up from './pages/Sign_up.jsx';
 import Code_up from './pages/Code_up.jsx';
 import Admin from './pages/Admin.jsx';
 import Categories from './pages/Categories.jsx';
+import Code_in from './pages/Code_in.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/code" element={<Code_up />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/code-in" element={<Code_in />} />
       </Routes>
     </BrowserRouter>
   );

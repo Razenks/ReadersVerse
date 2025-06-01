@@ -6,9 +6,9 @@ export default function Terms() {
     return (
         <>
             <Header />
-
-            <Terms_service />
-
+            <main className="main bg-[#f7f7f7]" id="main" >
+                <Terms_service />
+            </main>
             <Footer />
         </>
     );

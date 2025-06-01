@@ -8,7 +8,7 @@ export default function Index() {
   return (
     <>
       <Header />
-      <main className="bg-[#f7f7f7]" id="main">
+      <main className="main bg-[#f7f7f7]" id="main" >
         <PopularNovels />
         <NewNovels />
         <RecentlyUpdated />
@@ -16,4 +16,4 @@ export default function Index() {
       <Footer />
     </>
   );
-} 
+}  

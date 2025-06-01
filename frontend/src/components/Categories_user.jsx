@@ -3,44 +3,63 @@ function Categories_user() {
         <main>
             {/* Genre DIV */}
             <div className="w-[60%] h-auto bg-gray-300 flex  flex-col m-auto p-5">
-                <div className="text-center">
+                <div className="text-left">
                     <h1 className="text-2xl mt-5 mb-5">Genres | Categories</h1>
                 </div>
-                <div className="p-3 flex flex-row grid grid-cols-3 md:grid-cols-4 lg:grid-cols-10- gap-x-6 gap-y-4 pt-4">
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">Action</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">Romance</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">Fan-Fiction</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">Harem</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">Horror</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5" >Magic</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5">School Life</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5" >Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Yuri</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Yaoi</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Fantasy Romance</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Game</button>
+                <div className="p-3 flex flex-wrap gap-3 justify-left">
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actioadadan</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actiadadaon</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actaion</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">adad</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actadadadaion</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actadadadaion</button>
+
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Actwdwdwdwion</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">An</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold">Action</button>
+
+
                 </div>
-                <div className="text-center">
+                <div className="text-left">
                     <h1 className="text-2xl mt-5 mb-5">Status</h1>
                 </div>
-                <div className="p-3 flex flex-row grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-Z pt-4">
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">All</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">OnGoing</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Finished</button>
+                <div className="p-3 flex flex-wrap gap-3 justify-left">
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">All</button>
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">OnGoing</button>
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">Finished</button>
                 </div>
 
-                <div className="text-center">
+                <div className="text-left">
                     <h1 className="text-2xl mt-5 mb-5">Sort By</h1>
                 </div>
-                <div className="p-3 flex flex-row grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-Z pt-4">
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Popular</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">New</button>
-                    <button className="bg-blue-500 w-auto p-1 rounded-md text-white font-bold ml-5 ">Updates</button>
+                <div className="p-3 flex flex-wrap gap-3 justify-left">
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">Popular</button>
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">New</button>
+                    <button className="bg-blue-500 w-auto px-3 py-1 rounded-md text-white font-bold  ">Updates</button>
                 </div>
             </div>
             <div className="flex justify-center mt-10 space-x-2">
