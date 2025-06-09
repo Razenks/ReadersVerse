@@ -65,11 +65,15 @@ class AuthController extends Controller
             'email' => $verification->email,
             'password' => $verification->password,
             'email_verified_at' => now(),
+            'user_type' => 'user',
         ]);
 
         $verification->delete();
 
-        return response()->json(['message' => 'E-mail verified succesful']);
+        return response()->json([
+            'message' => 'Login verified successfully',
+            'user' => $user
+        ]);
     }
 
     public function verifyLogin(Request $request)

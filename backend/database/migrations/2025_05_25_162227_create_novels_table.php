@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('novels', function (Blueprint $table) {
             $table->id();
-            $table->string('title',255);
+            $table->string('title', 255);
+            $table->text('synopsis');
+            $table->string('status', 50);
+            $table->json('categories');
+            $table->string('cover_path')->nullable();
             $table->integer('chapter_count')->default(0);
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

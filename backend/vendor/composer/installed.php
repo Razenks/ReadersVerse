@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'b7af9895c68765e152e90c2a96f257e193bdeb51',
+        'reference' => '674e243f5514ed919f3caf9664ededc83faae7df',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -427,7 +427,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b7af9895c68765e152e90c2a96f257e193bdeb51',
+            'reference' => '674e243f5514ed919f3caf9664ededc83faae7df',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -564,6 +564,15 @@
             'install_path' => __DIR__ . '/../myclabs/deep-copy',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'nelexa/zip' => array(
+            'pretty_version' => '4.0.2',
+            'version' => '4.0.2.0',
+            'reference' => '88a1b6549be813278ff2dd3b6b2ac188827634a7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nelexa/zip',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
             'pretty_version' => '2.73.0',

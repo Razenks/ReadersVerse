@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 function Code_sign_in() {
     const location = useLocation();
@@ -7,6 +8,7 @@ function Code_sign_in() {
     const email = location.state?.email;
     const [code, setCode] = useState('');
     const [message, setMessage] = useState('');
+    const { login } = useAuth();
 
     const handleVerifyLogin = async () => {
         try {
@@ -25,6 +27,7 @@ function Code_sign_in() {
 
             if (data.user) {
                 localStorage.setItem('user', JSON.stringify(data.user));
+                login(data.user);
                 console.log('✅ sucessful login', data);
                 navigate('/');
             } else {

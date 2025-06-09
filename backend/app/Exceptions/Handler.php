@@ -51,17 +51,12 @@ class Handler extends ExceptionHandler
     }
 
 
-    public function render($request, Throwable $exception): \Symfony\Component\HttpFoundation\Response
+    public function render($request, Throwable $exception)
     {
-        if ($request->expectsJson()) {
-            $status = $exception instanceof HttpExceptionInterface
-                ? $exception->getStatusCode()
-                : 500;
-
+        if ($request->wantsJson()) {
             return response()->json([
-                'message' => $exception->getMessage(),
-                'status' => $status,
-            ], $status);
+                'error' => $exception->getMessage(),
+            ], 500);
         }
 
         return parent::render($request, $exception);

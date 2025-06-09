@@ -1,25 +1,19 @@
 import logo from '../assets/logo2.png';
-import { Search, Grid, Tag, RefreshCw, Menu, X, Moon, Sun } from 'react-feather';
+import { Search, Grid, Tag, RefreshCw, Menu, X, Moon, Sun, Bookmark, Book, Archive} from 'react-feather';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 function Header() {
+    const { user, logout} = useAuth();
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        setUser(null);
+        logout();
         navigate('/');
     };
 
@@ -66,20 +60,10 @@ function Header() {
             {/* Menu Right */}
             <div className="flex items-center space-x-2 md:mr-[40px]">
                 {/* Menu Hamburger (mobile) */}
-                <button className="md:hidden" onClick={toggleSidebar}>
+                <button className="" onClick={toggleSidebar}>
                     <Menu className="w-8 h-8 text-gray-500" />
                 </button>
 
-                {user ? (
-                    <>
-                        <span className="hidden md:flex px-4 py-2">Hello, {user.name}!</span>
-                        <button onClick={handleLogout} className="hidden md:flex bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
-                    </>
-                ) : (
-                    <Link to="/sign-in" className="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 items-center space-x-1">
-                        <span>SIGN IN</span>
-                    </Link>
-                )}
 
             </div>
 
@@ -93,9 +77,9 @@ function Header() {
                 )
             }
 
-            {/* Sidebar Mobile */}
+            {/* Sidebar */}
             <div
-                className={`fixed top-0 right-0 h-full w-60 bg-white shadow-lg z-50 p-4 transform transition-transform duration-300 md:hidden ${mobileOpen ? 'translate-x-0' : 'translate-x-full'
+                className={`fixed top-0 right-0 h-full w-60 md:w-[30%] md:p-[25px] bg-white shadow-lg z-50 p-4 transform transition-transform duration-300  ${mobileOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
             >
                 <div className="flex justify-end mb-4">
@@ -104,30 +88,48 @@ function Header() {
                     </button>
                 </div>
 
-                <nav className="flex flex-col space-y-4 text-sm">
+                <nav className="flex flex-col space-y-4 md:space-y-7 text-sm">
                     <span className="text-sm font-semibold">Enjoy your Web-Novels here!!!</span>
-                    <Link to="#" className="flex items-center space-x-2 hover:text-blue-600">
+                    {user && <span className="font-bold ">Hello, {user.name}</span>}
+                    <Link to="#" className="flex items-center space-x-2 hover:text-blue-600 md:hidden">
                         <Search className="w-4 h-4" /><span>Search</span>
                     </Link>
                     <Link to="#" className="flex items-center space-x-2 hover:text-blue-600">
+                        <Book className="w-4 h-4" /><span>Library</span>
+                    </Link>
+                    <Link to="#" className="flex items-center space-x-2 hover:text-blue-600 md:hidden">
                         <Grid className="w-4 h-4" /><span>Categories</span>
                     </Link>
                     <Link to="#" className="flex items-center space-x-2 hover:text-blue-600">
+                        <Bookmark className="w-4 h-4" /><span>Favorites</span>
+                    </Link>
+                    <Link to="#" className="flex items-center space-x-2 hover:text-blue-600 md:hidden">
                         <Tag className="w-4 h-4" /><span>Tags</span>
                     </Link>
                     <Link to="#" className="flex items-center space-x-2 hover:text-blue-600">
+                        <Archive className="w-4 h-4" /><span>History</span>
+                    </Link>
+                    <Link to="#" className="flex items-center space-x-2 hover:text-blue-600 md:hidden">
                         <RefreshCw className="w-4 h-4" /><span>Updates</span>
                     </Link>
-                    <button className="flex items-center hover:text-blue-600">
+                    <button className="flex items-center hover:text-blue-600 md:hidden">
                         <Moon className="w-4 h-4" /><span className="ml-2">Dark Mode</span>
                     </button>
 
-                    <Link
-                        to="/sign-in"
-                        className="flex items-center justify-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700"
-                    >
-                        <span>SIGN IN</span>
-                    </Link>
+                    {user ? (
+                        <span>
+                            <button className="flex items-center justify-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 w-full" onClick={handleLogout}>
+                                <span className="font-bold">LOGOUT</span>
+                            </button>
+                        </span>
+                    ) : (
+                        <Link
+                            to="/sign-in"
+                            className=" flex items-center justify-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 "
+                        >
+                            <span>SIGN IN</span>
+                        </Link>
+                    )}
                 </nav>
             </div>
         </header >

@@ -9,9 +9,9 @@ class EmailVerification extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',          // precisa estar aqui
-        'email',         // precisa estar aqui
-        'password',      // precisa estar aqui
+        'name',      
+        'email',        
+        'password',      
         'code',
         'expires_at',
     ];
