@@ -8,10 +8,11 @@ class Novel extends Model
 {
     protected $fillable = [
         'title',
-        'author',
-        'description',
-        'slug',
+        'synopsis',
+        'status',
+        'categories',
         'cover_path',
-        'epub_path',
+        'chapter_count',
+        'added_at',
     ];
 }

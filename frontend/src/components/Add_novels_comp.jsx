@@ -4,27 +4,21 @@ import { useState } from 'react';
 function AddNovelsForm() {
     const { register, handleSubmit, reset } = useForm();
     const [epubFile, setEpubFile] = useState(null);
-    const [coverFile, setCoverFile] = useState(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [coverFile, setCoverFile] = useState(null);
 
     const categories = [
         "All", "Fan-Fiction", "Billionaire", "Douluo", "Faloo", "Dragon Ball", "Football", "NBA", "Marvel", "Pokemon",
-        // ... seu array completo
+        "Elf", "Hogwarts", "System", "Naruto", "One Piece", "Villain", "Sign in", "Derivative Fanfic", "Hot", "Action",
+        "Adventure", "Anime", "Comedy", "Systemflow", "Competitive Sports", "Contemporary Romance", "Detective", "Drama",
+        "Eastern Fantasy", "Ecchi", "Fantasy", "Fantasy Romance", "Game", "Gender Bender", "Harem", "Historical",
+        "Historical Romance", "Horror", "Josei", "LGBT", "Lolicon", "Magic", "Magical Realism", "Martial Arts", "Mecha",
+        "Military", "Modern Life", "Movies", "Mystery", "Psychological", "Realistic Fiction", "Reincarnation", "Romance",
+        "School Life", "Sci-fi", "Science fiction", "Secret", "Seinen", "Shoujo", "Shoujo Ai", "Shounen", "Shounen Ai",
+        "Slice of Life", "Smut", "Sports", "Supernatural", "Suspense", "Terror", "Tragedy", "Video Games", "War", "Wuxia",
+        "Xianxia", "Xuanhuan", "Yaoi", "Yuri", "Urban Life", "Travel Through Time", "BL", "BG", "GL", "Other", "Crossing",
         "Rebirth"
     ];
-
-    const toggleCategory = (category) => {
-        setSelectedCategories((prev) => {
-            if (prev.includes(category)) {
-                return prev.filter(c => c !== category);
-            } else if (prev.length < 4) {
-                return [...prev, category];
-            } else {
-                alert('Você só pode selecionar até 4 categorias.');
-                return prev;
-            }
-        });
-    };
 
     const onSubmit = (data) => {
         if (!epubFile) {
@@ -33,43 +27,56 @@ function AddNovelsForm() {
         }
 
         if (selectedCategories.length === 0) {
-            alert('Selecione pelo menos uma categoria.');
+            alert("Selecione pelo menos uma categoria.");
             return;
         }
 
         const formData = new FormData();
         formData.append('title', data.title);
         formData.append('synopsis', data.synopsis);
-        formData.append('status', data.status);
         formData.append('categories', JSON.stringify(selectedCategories));
+        formData.append('status', data.status);
+        formData.append('author', data.author);
         formData.append('epub', epubFile);
-        if (coverFile) formData.append('cover', coverFile);
+        formData.append('cover', coverFile)
 
         fetch('http://localhost:8000/api/addNovels', {
             method: 'POST',
-            body: formData,
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json',
-            }
+            body: formData
         })
-            .then(async (response) => {
+            .then(async response => {
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(errorText);
+                    const text = await response.text(); // Captura HTML ou mensagem de erro
+                    throw new Error(text);
                 }
                 return response.json();
             })
-            .then((res) => {
-                alert(res.message || 'Novel adicionada com sucesso!');
+            .then(data => {
+                alert(data.message || 'Novel adicionada com sucesso!');
                 reset();
                 setEpubFile(null);
-                setCoverFile(null);
                 setSelectedCategories([]);
             })
-            .catch((error) => {
-                alert(error.message || 'Erro ao adicionar novel.');
+            .catch(async error => {
+                const message = error.message || 'Erro ao adicionar novel.';
+                alert(message);
             });
+    };
+
+    const toggleCategory = (category) => {
+        setSelectedCategories((prev) => {
+            if (prev.includes(category)) {
+                // Se já está selecionada, remove
+                return prev.filter((c) => c !== category);
+            } else if (prev.length < 4) {
+                // Adiciona se tiver menos de 4 selecionadas
+                return [...prev, category];
+            } else {
+                // Alerta se tentar adicionar mais de 4
+                alert("Você só pode selecionar até 4 categorias.");
+                return prev;
+            }
+        });
     };
 
     return (
@@ -97,20 +104,27 @@ function AddNovelsForm() {
                 </div>
 
                 <div>
-                    <label className="block font-semibold mb-2">Categories (max 4):</label>
+                    <label className="block font-semibold">Author:</label>
+                    <input
+                        type="text"
+                        {...register('author', { required: true })}
+                        className="w-full border px-3 py-2 rounded"
+                        placeholder="Novel's Author"
+                    />
+                </div>
+
+                <div>
+                    <label className="block font-semibold mb-2">Category:</label>
                     <div className="flex flex-wrap gap-2">
-                        {categories.map((category, idx) => (
-                            <button
-                                type="button"
-                                key={idx}
-                                onClick={() => toggleCategory(category)}
+                        {categories.map((category, index) => (
+                            <button type="button" key={index} onClick={() => toggleCategory(category)}
                                 disabled={!selectedCategories.includes(category) && selectedCategories.length >= 4}
-                                title={!selectedCategories.includes(category) && selectedCategories.length >= 4 ? 'Limite de 4 categorias' : ''}
                                 className={`border px-3 py-1 rounded transition
                                   ${selectedCategories.includes(category)
-                                    ? 'bg-blue-500 text-white'
-                                    : 'border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white'}
-                                  ${!selectedCategories.includes(category) && selectedCategories.length >= 4 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        ? 'bg-blue-500 text-white'
+                                        : 'border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white'}
+                                ${!selectedCategories.includes(category) && selectedCategories.length >= 4 ? 'opacity-50 cursor-not-allowed' : ''}
+                                `}
                             >
                                 {category}
                             </button>
@@ -123,9 +137,8 @@ function AddNovelsForm() {
                     <select
                         {...register('status', { required: true })}
                         className="w-full border px-3 py-2 rounded"
-                        defaultValue=""
                     >
-                        <option value="" disabled>Select</option>
+                        <option value="">Select</option>
                         <option value="em_andamento">On Going</option>
                         <option value="completo">Finished</option>
                         <option value="pausado">Paused</option>
@@ -137,25 +150,22 @@ function AddNovelsForm() {
                     <input
                         type="file"
                         accept=".epub"
-                        onChange={e => setEpubFile(e.target.files[0])}
+                        onChange={(e) => setEpubFile(e.target.files[0])}
                         className="w-full border px-3 py-2 rounded"
                     />
                 </div>
 
                 <div>
-                    <label className="block font-semibold">Cover Image (optional):</label>
+                    <label className="block font-semibold">Image Archive:</label>
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={e => setCoverFile(e.target.files[0])}
+                        onChange={(e) => setCoverFile(e.target.files[0])}
                         className="w-full border px-3 py-2 rounded"
                     />
                 </div>
 
-                <button
-                    type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
-                >
+                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
                     ADD NOVEL
                 </button>
             </form>

@@ -24,7 +24,7 @@ function App() {
       <Route path="/code" element={<Code_up />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/code-in" element={<Code_in />} />
-      <Route path="/novel" element={<Novel />} />
+      <Route path="/novel/:novelId" element={<Novel />} />
       <Route path="/add_novels" element={
         <AdminRoute>
           <Add_novels />
