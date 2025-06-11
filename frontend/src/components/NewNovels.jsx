@@ -26,8 +26,8 @@ function NewNovels() {
             });
     }, []);
 
-    if (loading) return <p>Loading novels...</p>;
-    if (error) return <p className="text-red-600">Erro: {error}</p>;
+    if (loading) return <span>Loading novels...</span>;
+    if (error) return <span className="text-red-600">Erro: {error}</span>;
 
     return (
         <section className="pt-9 px-2 sm:px-6 lg:px-16 mt-6 md:ml-[20px] lg:pt-6 w-full">
@@ -65,12 +65,12 @@ function NewNovels() {
                                     {novel.status.toUpperCase()}
                                 </span>
                             </div>
-                            <p className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">
+                            <span className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">
                                 {novel.title}
-                            </p>
-                            <p className="text-[11px] text-gray-500 text-left truncate w-full">
+                            </span>
+                            <span className="text-[11px] text-gray-500 text-left truncate w-full">
                                 {novel.author || 'Autor desconhecido'}
-                            </p>
+                            </span>
                         </div>
                     </Link>
                 ))}

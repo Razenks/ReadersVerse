@@ -19,9 +19,9 @@ function PopularNovels() {
                         <span
                             className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 py-0.5 rounded">ONGOING</span>
                     </div>
-                    <p className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">Pirates: Building a Pirate
-                        Family.</p>
-                    <p className="text-[11px] text-gray-500 text-left truncate w-full">君醉梦心</p>
+                    <span className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">Pirates: Building a Pirate
+                        Family.</span>
+                    <span className="text-[11px] text-gray-500 text-left truncate w-full">君醉梦心</span>
                 </div>
 
                 <div className="flex flex-col items-center lg:w-[153px]">
@@ -30,9 +30,9 @@ function PopularNovels() {
                         <span
                             className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 py-0.5 rounded">ONGOING</span>
                     </div>
-                    <p className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">Pirates: Building a Pirate
-                        Family.</p>
-                    <p className="text-[11px] text-gray-500 text-left truncate w-full">君醉梦心</p>
+                    <span className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">Pirates: Building a Pirate
+                        Family.</span>
+                    <span className="text-[11px] text-gray-500 text-left truncate w-full">君醉梦心</span>
                 </div>
             </div>
 

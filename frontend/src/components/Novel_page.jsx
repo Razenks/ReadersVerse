@@ -91,7 +91,7 @@ function NovelPage() {
           alt={novel.title}
           className="w-40 h-60 object-cover rounded-lg shadow-md"
         />
-        <div className="flex-1">
+        <div className="flex-1 dark:text-gray-400 text-black">
           <h1 className="text-3xl font-bold mb-2">{novel.title}</h1>
           <p className="mb-1"><span className="font-semibold">Author:</span> {novel.author}</p>
           <p className="mb-1"><span className="font-semibold">Status:</span> {novel.status}</p>
@@ -135,7 +135,7 @@ function NovelPage() {
           {renderPagination()}
         </div>
       ) : (
-        <div className="mt-6 text-gray-700">
+        <div className="mt-6 text-gray-400">
           {novel.synopsis}
         </div>
       )}

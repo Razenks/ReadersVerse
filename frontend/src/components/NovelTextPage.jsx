@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import '../index.css';
 
 function NovelTextPage() {
   const { chapterId } = useParams();
   const [chapter, setChapter] = useState(null);
   const [fontSize, setFontSize] = useState(16);
-  const [darkMode, setDarkMode] = useState(true);
-
+  
   useEffect(() => {
     axios.get(`http://localhost:8000/api/chapter/${chapterId}`)
       .then(res => setChapter(res.data))
@@ -16,6 +16,7 @@ function NovelTextPage() {
 
   const increaseFont = () => setFontSize(f => Math.min(f + 2, 32));
   const decreaseFont = () => setFontSize(f => Math.max(f - 2, 12));
+  
 
   if (!chapter) return <div className="text-center text-white py-10">Loading...</div>;
 
@@ -29,23 +30,28 @@ function NovelTextPage() {
             <p className="text-sm text-gray-400">{chapter.title}</p>
           </div>
           <div className="flex items-center gap-2 mt-4 md:mt-0">
-            <Link to={`/chapter/${parseInt(chapterId) - 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">⬅ PREV</Link>
-            <Link to={`/chapter/${parseInt(chapterId) + 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">NEXT ➡</Link>
-            <button onClick={increaseFont} className="px-2 py-1 border">A+</button>
-            <button onClick={decreaseFont} className="px-2 py-1 border">A-</button>
-            <button className="px-2 py-1 border">Select Font</button>
+            <button onClick={increaseFont} className="px-3 py-1 border">A+</button>
+            <button onClick={decreaseFont} className="px-3 py-1 border">A-</button>
           </div>
         </div>
 
         {/* Anúncio (placeholder) */}
         <div className="text-center text-xs text-gray-500 my-6">ADVERTISEMENT</div>
 
+        <div className='flex justify-evenly mt-3'>
+          <Link to={`/chapter/${parseInt(chapterId) - 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">⬅ PREV</Link>
+          <Link to={`/chapter/${parseInt(chapterId) + 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">NEXT ➡</Link>
+        </div>
         {/* Conteúdo do capítulo */}
         <div
           className="prose dark:prose-invert max-w-none "
-          style={{ fontSize: `${fontSize}px` }}
+          style={{ fontSize: `${fontSize}px`, letterSpacing: '0.1em', lineHeight: '5' }}
           dangerouslySetInnerHTML={{ __html: chapter.context }}
         />
+      </div>
+      <div className='flex justify-evenly mt-3'>
+        <Link to={`/chapter/${parseInt(chapterId) - 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">⬅ PREV</Link>
+        <Link to={`/chapter/${parseInt(chapterId) + 1}`} className="bg-blue-700 hover:bg-blue-800 text-white px-3 py-1 rounded">NEXT ➡</Link>
       </div>
     </div>
   );

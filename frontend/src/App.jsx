@@ -12,6 +12,7 @@ import AdminRoute from './components/Admin_route.jsx';
 import Add_novels from './pages/Add_novels.jsx';
 import Novel from './pages/Novel.jsx';
 import Chapter from './pages/Chapter.jsx';
+import './index.css';
 
 
 function App() {

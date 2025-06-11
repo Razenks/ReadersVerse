@@ -9,52 +9,52 @@ function Footer() {
                     <Link to="/">
                             <img src={logo2} alt="Logo" className="md:w-[110px] h-[100px] lg:mt-14"/>
                     </Link>
-                    <p className="">@2025 Readersverse.com</p>
+                    <span className="">@2025 Readersverse.com</span>
                 </div>
                 <div className="flex flex-row justify-evenly items-center w-full max-w-4xl mt-5">
                     <div className="flex flex-col items-left ">
                         <h1 className="font-bold">Novels</h1>
                         <Link to="/">
-                            <p className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</p>
+                            <span className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</span>
                         </Link>
                         <Link to="/">
-                            <p className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</p>
+                            <span className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</span>
                         </Link>
                         <Link to="/">
-                            <p className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</p>
+                            <span className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</span>
                         </Link>
                         <Link to="/">
-                            <p className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</p>
+                            <span className=' max-w-[16ch] whitespace-nowrap overflow-hidden text-ellipsis'>Pirates: Building a Pirate Family.</span>
                         </Link>
                     </div>
                     <div className="flex flex-col items-left">
                         <h1 className="font-bold">Genres</h1>
                         <Link to="/">
-                            <p>Action</p>
+                            <span>Action</span>
                         </Link>
                         <Link to="/">
-                            <p>Romance</p>
+                            <span>Romance</span>
                         </Link>
                         <Link to="/">
-                            <p>Fan-Fiction</p>
+                            <span>Fan-Fiction</span>
                         </Link>
                         <Link to="/">
-                            <p>Terror</p>
+                            <span>Terror</span>
                         </Link>
                     </div>
                     <div className="flex flex-col items-left">
                         <h1 className="font-bold">Terms and Policies</h1>
                         <Link to="/terms">
-                            <p>Terms of Service</p>
+                            <span>Terms of Service</span>
                         </Link>
                         <Link to="/privacy-policy">
-                            <p>Privacy Policy</p>
+                            <span>Privacy Policy</span>
                         </Link>
                         <Link to="/dmca">
-                            <p>DMCA</p>
+                            <span>DMCA</span>
                         </Link>
                         <Link to="/contact">
-                            <p>Contact Us</p>
+                            <span>Contact Us</span>
                         </Link>
                     </div>
                 </div>

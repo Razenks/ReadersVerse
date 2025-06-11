@@ -16,9 +16,9 @@ function Header() {
 
     useEffect(() => {
         if (darkMode) {
-            document.body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark');
         } else {
-            document.body.classList.remove('dark-mode');
+            document.documentElement.classList.remove('dark');
         }
     }, [darkMode]);
 
@@ -27,10 +27,16 @@ function Header() {
         logout();
         navigate('/');
     };
-    const toggleTheme = () => setDarkMode(prev => !prev);
+    const toggleTheme = () => {
+        setDarkMode(prev => {
+            const newTheme = !prev;
+            localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+            return newTheme;
+        });
+    };
 
     return (
-        <header className="flex items-center justify-between px-4 py-4 shadow-md w-full">
+        <header className="flex items-center justify-between px-4 py-4 shadow-md w-full text-black dark:text-gray-400">
             <Link to="/">
                 <div className="flex items-center flex-shrink-0 md:ml-[60px]">
                     <img src={logo} alt="Logo" className="md:w-[95px] md:h-[80px] h-14" />
@@ -73,7 +79,7 @@ function Header() {
                 />
             )}
 
-            <div className={`fixed top-0 right-0 h-full w-60 md:w-[30%] bg-white shadow-lg z-50 p-4 transform transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-60 md:w-[30%] bg-white dark:bg-gray-800 text-black dark:text-gray-400 shadow-lg z-50 p-4 transform transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex justify-end mb-4">
                     <button onClick={toggleSidebar}>
                         <X className="w-6 h-6" />

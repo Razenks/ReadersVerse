@@ -1,7 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   background-color: var(--bs-body-bg, white);
   color: var(--bs-body-color, black);
   transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 body.dark-mode {
@@ -17,4 +22,9 @@ header, footer {
 [data-bs-theme="dark"] {
   background-color: #18181b;
   color: #e5e5e5;
+}
+
+p {
+  line-height: 2; /* Espaçamento entre linhas dentro do parágrafo */
+  margin-bottom: 1em; /* Espaço entre parágrafos */
 }
