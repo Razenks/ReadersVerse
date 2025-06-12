@@ -1,12 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
-  background-color: var(--bs-body-bg, white);
+  background-color: var(--bs-body-bg, rgb(240, 239, 239));
   color: var(--bs-body-color, black);
   transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
+
 }
 
 body.dark-mode {
@@ -14,7 +11,8 @@ body.dark-mode {
   --bs-body-color: #e5e5e5;
 }
 
-header, footer {
+header,
+footer {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
@@ -25,6 +23,8 @@ header, footer {
 }
 
 p {
-  line-height: 2; /* Espaçamento entre linhas dentro do parágrafo */
-  margin-bottom: 1em; /* Espaço entre parágrafos */
+  line-height: 2;
+  /* Espaçamento entre linhas dentro do parágrafo */
+  margin-bottom: 1em;
+  /* Espaço entre parágrafos */
 }

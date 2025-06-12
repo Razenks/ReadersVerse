@@ -7,8 +7,9 @@ function NovelTextPage() {
   const { chapterId } = useParams();
   const [chapter, setChapter] = useState(null);
   const [fontSize, setFontSize] = useState(16);
-  
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios.get(`http://localhost:8000/api/chapter/${chapterId}`)
       .then(res => setChapter(res.data))
       .catch(err => console.error('Failed to fetch chapter:', err));
@@ -16,7 +17,7 @@ function NovelTextPage() {
 
   const increaseFont = () => setFontSize(f => Math.min(f + 2, 32));
   const decreaseFont = () => setFontSize(f => Math.max(f - 2, 12));
-  
+
 
   if (!chapter) return <div className="text-center text-white py-10">Loading...</div>;
 

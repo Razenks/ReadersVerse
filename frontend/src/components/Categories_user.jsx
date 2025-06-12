@@ -19,8 +19,8 @@ function Categories_user() {
                 sort_by: selectedSort
             }
         })
-        .then(res => setNovels(res.data.data || []))
-        .catch(error => console.error('Erro ao buscar novels:', error));
+            .then(res => setNovels(res.data.data || []))
+            .catch(error => console.error('Erro ao buscar novels:', error));
     }, [selectedCategories, selectedStatus, selectedSort]);
 
     const toggleCategory = (category) => {
@@ -41,15 +41,27 @@ function Categories_user() {
             <div className="bg-gray-100 border rounded-lg p-4 mb-6">
                 <h2 className="text-xl font-semibold mb-3">Genre / Category</h2>
                 <div className="flex flex-wrap gap-2 mb-4">
+                    <button
+                        onClick={() => {
+                            setSelectedCategories([]);
+                            setSelectedStatus('');
+                            setSelectedSort('updated');
+                        }}
+                        className={`px-3 py-1 text-sm rounded-full border font-medium transition ${selectedCategories.length === 0 && selectedStatus === ''
+                                ? 'bg-blue-800 text-white'
+                                : 'bg-white text-gray-700 hover:bg-blue-100'
+                            }`}
+                    >
+                        All
+                    </button>
                     {categories.map((cat, index) => (
                         <button
                             key={index}
                             onClick={() => toggleCategory(cat)}
-                            className={`px-3 py-1 text-sm rounded-full border font-medium transition ${
-                                selectedCategories.includes(cat)
+                            className={`px-3 py-1 text-sm rounded-full border font-medium transition ${selectedCategories.includes(cat)
                                     ? 'bg-blue-600 text-white'
                                     : 'bg-white text-gray-700 hover:bg-blue-100'
-                            }`}
+                                }`}
                         >
                             {cat}
                         </button>
@@ -64,11 +76,10 @@ function Categories_user() {
                             <button
                                 key={idx}
                                 onClick={() => setSelectedStatus(status)}
-                                className={`px-3 py-1 text-sm rounded-full border font-medium transition ${
-                                    selectedStatus === status
+                                className={`px-3 py-1 text-sm rounded-full border font-medium transition ${selectedStatus === status
                                         ? 'bg-green-600 text-white'
                                         : 'bg-white text-gray-700 hover:bg-green-100'
-                                }`}
+                                    }`}
                             >
                                 {status === '' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
                             </button>
@@ -88,11 +99,10 @@ function Categories_user() {
                             <button
                                 key={value}
                                 onClick={() => setSelectedSort(value)}
-                                className={`px-3 py-1 text-sm rounded-full border font-medium transition ${
-                                    selectedSort === value
+                                className={`px-3 py-1 text-sm rounded-full border font-medium transition ${selectedSort === value
                                         ? 'bg-purple-600 text-white'
                                         : 'bg-white text-gray-700 hover:bg-purple-100'
-                                }`}
+                                    }`}
                             >
                                 {label}
                             </button>

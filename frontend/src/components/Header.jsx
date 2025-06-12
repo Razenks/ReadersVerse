@@ -1,5 +1,5 @@
 import logo from '../assets/logo2.png';
-import { Search, Grid, Tag, RefreshCw, Menu, X, Moon, Sun, Bookmark, Book, Archive } from 'react-feather';
+import { Search, Grid, Tag, RefreshCw, Menu, X, Moon, Sun, Bookmark, Book, Archive, Plus } from 'react-feather';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -36,7 +36,7 @@ function Header() {
     };
 
     return (
-        <header className="flex items-center justify-between px-4 py-4 shadow-md w-full text-black dark:text-gray-400">
+        <header className="flex items-center bg-white justify-between px-4 py-4 shadow-md w-full text-gray-800 ">
             <Link to="/">
                 <div className="flex items-center flex-shrink-0 md:ml-[60px]">
                     <img src={logo} alt="Logo" className="md:w-[95px] md:h-[80px] h-14" />
@@ -55,10 +55,10 @@ function Header() {
                 <Link to="/categories" className="flex items-center space-x-1">
                     <Grid className="w-4 h-4" /><span>Categories</span>
                 </Link>
-                <Link to="#" className="flex items-center space-x-1">
+                <Link to="/tags" className="flex items-center space-x-1">
                     <Tag className="w-4 h-4" /><span>Tags</span>
                 </Link>
-                <Link to="#" className="flex items-center space-x-1">
+                <Link to="/NovelsUpdated" className="flex items-center space-x-1">
                     <RefreshCw className="w-4 h-4" /><span>Updates</span>
                 </Link>
                 <button onClick={toggleTheme} className="border border-gray-500 rounded px-1 py-1">
@@ -79,7 +79,7 @@ function Header() {
                 />
             )}
 
-            <div className={`fixed top-0 right-0 h-full w-60 md:w-[30%] bg-white dark:bg-gray-800 text-black dark:text-gray-400 shadow-lg z-50 p-4 transform transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-60 md:w-[30%] bg-white text-gray-800 font-bold shadow-lg z-50 p-4 transform transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex justify-end mb-4">
                     <button onClick={toggleSidebar}>
                         <X className="w-6 h-6" />
@@ -95,18 +95,28 @@ function Header() {
                     <Link to="#" className="flex items-center space-x-2">
                         <Book className="w-4 h-4" /><span>Library</span>
                     </Link>
-                    <Link to="#" className="flex items-center space-x-2 md:hidden">
+                    <Link to="/categories" className="flex items-center space-x-2 md:hidden">
                         <Grid className="w-4 h-4" /><span>Categories</span>
                     </Link>
                     <Link to="#" className="flex items-center space-x-2">
                         <Bookmark className="w-4 h-4" /><span>Favorites</span>
                     </Link>
-                    <Link to="#" className="flex items-center space-x-2 md:hidden">
+                    <Link to="/tags" className="flex items-center space-x-2  ">
                         <Tag className="w-4 h-4" /><span>Tags</span>
+                    </Link>
+                    <Link to="/NovelsUpdated" className="flex items-center space-x-2 md:hidden">
+                        <RefreshCw className="w-4 h-4" /><span>Updates</span>
                     </Link>
                     <Link to="#" className="flex items-center space-x-2">
                         <Archive className="w-4 h-4" /><span>History</span>
                     </Link>
+                    <div>
+                        {user?.user_type === 'admin' && (
+                            <Link to="/add_novels" className='flex items-center space-x-2'>
+                                <Plus className="w-4 h-4" /><span>Add novels</span>
+                            </Link>
+                        )}
+                    </div>
                     <button onClick={toggleTheme} className="flex items-center md:hidden">
                         {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                         <span className="ml-2">Dark Mode</span>

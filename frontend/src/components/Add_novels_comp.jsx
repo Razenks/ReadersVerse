@@ -1,14 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import allTags from '../constants/tags';
 
 function AddNovelsForm() {
     const { register, handleSubmit, reset } = useForm();
     const [epubFile, setEpubFile] = useState(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [coverFile, setCoverFile] = useState(null);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [tagLetter, setTagLetter] = useState('A');
+    const [currentTagPage, setCurrentTagPage] = useState(1);
 
     const categories = [
-        "All", "Fan-Fiction", "Billionaire", "Douluo", "Faloo", "Dragon Ball", "Football", "NBA", "Marvel", "Pokemon",
+        "Fan-Fiction", "Billionaire", "Douluo", "Faloo", "Dragon Ball", "Football", "NBA", "Marvel", "Pokemon",
         "Elf", "Hogwarts", "System", "Naruto", "One Piece", "Villain", "Sign in", "Derivative Fanfic", "Hot", "Action",
         "Adventure", "Anime", "Comedy", "Systemflow", "Competitive Sports", "Contemporary Romance", "Detective", "Drama",
         "Eastern Fantasy", "Ecchi", "Fantasy", "Fantasy Romance", "Game", "Gender Bender", "Harem", "Historical",
@@ -19,6 +23,11 @@ function AddNovelsForm() {
         "Xianxia", "Xuanhuan", "Yaoi", "Yuri", "Urban Life", "Travel Through Time", "BL", "BG", "GL", "Other", "Crossing",
         "Rebirth"
     ];
+
+    const tagsPerPage = 30;
+    const filteredTags = allTags[tagLetter] || [];
+    const totalTagPages = Math.ceil(filteredTags.length / tagsPerPage);
+    const paginatedTags = filteredTags.slice((currentTagPage - 1) * tagsPerPage, currentTagPage * tagsPerPage);
 
     const onSubmit = (data) => {
         if (!epubFile) {
@@ -35,10 +44,11 @@ function AddNovelsForm() {
         formData.append('title', data.title);
         formData.append('synopsis', data.synopsis);
         formData.append('categories', JSON.stringify(selectedCategories));
+        formData.append('tags', JSON.stringify(selectedTags));
         formData.append('status', data.status);
         formData.append('author', data.author);
         formData.append('epub', epubFile);
-        formData.append('cover', coverFile)
+        formData.append('cover', coverFile);
 
         fetch('http://localhost:8000/api/addNovels', {
             method: 'POST',
@@ -46,7 +56,7 @@ function AddNovelsForm() {
         })
             .then(async response => {
                 if (!response.ok) {
-                    const text = await response.text(); // Captura HTML ou mensagem de erro
+                    const text = await response.text();
                     throw new Error(text);
                 }
                 return response.json();
@@ -56,6 +66,7 @@ function AddNovelsForm() {
                 reset();
                 setEpubFile(null);
                 setSelectedCategories([]);
+                setSelectedTags([]);
             })
             .catch(async error => {
                 const message = error.message || 'Erro ao adicionar novel.';
@@ -66,14 +77,24 @@ function AddNovelsForm() {
     const toggleCategory = (category) => {
         setSelectedCategories((prev) => {
             if (prev.includes(category)) {
-                // Se já está selecionada, remove
                 return prev.filter((c) => c !== category);
             } else if (prev.length < 4) {
-                // Adiciona se tiver menos de 4 selecionadas
                 return [...prev, category];
             } else {
-                // Alerta se tentar adicionar mais de 4
                 alert("Você só pode selecionar até 4 categorias.");
+                return prev;
+            }
+        });
+    };
+
+    const toggleTag = (tag) => {
+        setSelectedTags((prev) => {
+            if (prev.includes(tag)) {
+                return prev.filter((t) => t !== tag);
+            } else if (prev.length < 10) {
+                return [...prev, tag];
+            } else {
+                alert("Você só pode selecionar até 10 tags.");
                 return prev;
             }
         });
@@ -123,12 +144,65 @@ function AddNovelsForm() {
                                   ${selectedCategories.includes(category)
                                         ? 'bg-blue-500 text-white'
                                         : 'border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white'}
-                                ${!selectedCategories.includes(category) && selectedCategories.length >= 4 ? 'opacity-50 cursor-not-allowed' : ''}
-                                `}
+                                ${!selectedCategories.includes(category) && selectedCategories.length >= 4 ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {category}
                             </button>
                         ))}
+                    </div>
+                </div>
+
+                <div>
+                    <label className="block font-semibold mb-2">Tags:</label>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                        {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => (
+                            <button
+                                key={letter}
+                                type="button"
+                                onClick={() => {
+                                    setTagLetter(letter);
+                                    setCurrentTagPage(1);
+                                }}
+                                className={`px-2 text-sm font-semibold ${tagLetter === letter ? 'text-blue-600 underline' : ''}`}
+                            >
+                                {letter}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                        {paginatedTags.map((tag, index) => (
+                            <button
+                                type="button"
+                                key={index}
+                                onClick={() => toggleTag(tag)}
+                                disabled={!selectedTags.includes(tag) && selectedTags.length >= 10}
+                                className={`border px-3 py-1 rounded transition
+                                    ${selectedTags.includes(tag)
+                                        ? 'bg-green-500 text-white'
+                                        : 'border-green-400 text-green-400 hover:bg-green-400 hover:text-white'}
+                                    ${!selectedTags.includes(tag) && selectedTags.length >= 10 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex items-center gap-1 mt-2">
+                        <button type="button" onClick={() => setCurrentTagPage(1)} disabled={currentTagPage === 1}>«</button>
+                        <button type="button" onClick={() => setCurrentTagPage(prev => Math.max(prev - 1, 1))}>{'<'}</button>
+                        {[...Array(totalTagPages)].map((_, i) => (
+                            <button
+                                type="button"
+                                key={i}
+                                onClick={() => setCurrentTagPage(i + 1)}
+                                className={`px-2 ${currentTagPage === i + 1 ? 'text-blue-600 font-bold' : ''}`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                        <button type="button" onClick={() => setCurrentTagPage(prev => Math.min(prev + 1, totalTagPages))}>{'>'}</button>
+                        <button type="button" onClick={() => setCurrentTagPage(totalTagPages)} disabled={currentTagPage === totalTagPages}>»</button>
                     </div>
                 </div>
 

@@ -13,8 +13,9 @@ class Novel extends Model
         'title',
         'synopsis',
         'status',
-        'author',         // <- ESSENCIAL
+        'author',        
         'categories',
+        'tags',
         'cover_path',
         'chapter_count',
     ];

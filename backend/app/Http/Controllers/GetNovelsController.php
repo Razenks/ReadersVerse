@@ -90,4 +90,35 @@ class GetNovelsController extends Controller
             ], 500);
         }
     }
+
+    public function getNovelsByTag($tag)
+    {
+        $novels = Novel::where('tags', 'like', "%$tag%")
+            ->select('id', 'title', 'cover_path', 'status', 'author', 'updated_at')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return response()->json($novels);
+    }
+
+    public function recentlyUpdatedNovels(Request $request)
+    {
+        $perPage = 10; // novels por página
+        $page = $request->input('page', 1);
+
+        $novels = Novel::select(
+            'novels.id',
+            'novels.title',
+            'novels.cover_path',
+            'novels.status',
+            'novels.author',
+            'novels.updated_at'
+        )
+            ->join('chapters', 'novels.id', '=', 'chapters.novel_id')
+            ->groupBy('novels.id', 'novels.title', 'novels.cover_path', 'novels.status', 'novels.author', 'novels.updated_at')
+            ->orderBy('updated_at', 'desc')
+            ->paginate($perPage, ['*'], 'page', $page);
+
+        return response()->json($novels);
+    }
 }

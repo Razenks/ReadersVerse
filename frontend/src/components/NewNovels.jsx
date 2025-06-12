@@ -32,7 +32,7 @@ function NewNovels() {
     return (
         <section className="pt-9 px-2 sm:px-6 lg:px-16 mt-6 md:ml-[20px] lg:pt-6 w-full">
             <div className="flex justify-between items-center pr-4">
-                <h1 className="text-2xl font-semibold mb-4">New Novels</h1>
+                <h1 className="text-2xl font-semibold mb-4 text-gray-800">New Novels</h1>
                 <div>
                     {user?.user_type === 'admin' && (
                         <Link to="/add_novels">
@@ -50,7 +50,7 @@ function NewNovels() {
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-4 pt-4">
                 {novels.map((novel) => (
                     <Link to={`/novel/${novel.id}`} key={novel.id} className="block">
-                        <div className="flex flex-col items-center lg:w-[153px] hover:shadow-lg transition cursor-pointer">
+                        <div className="flex flex-col items-center lg:w-[153px] transition cursor-pointer">
                             <div className="relative w-full rounded-sm shadow-md overflow-hidden">
                                 <img
                                     src={
@@ -59,7 +59,7 @@ function NewNovels() {
                                             : '/default-cover.jpeg'
                                     }
                                     alt={`Capa da Novel ${novel.title}`}
-                                    className="w-full h-full lg:w-[190px] lg:h-[240px] object-cover"
+                                    className="w-full h-full w-[105px] h-[140px] lg:w-[157px] lg:h-[210px] object-cover"
                                 />
                                 <span className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 py-0.5 rounded">
                                     {novel.status.toUpperCase()}

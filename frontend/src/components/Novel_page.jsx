@@ -12,6 +12,7 @@ function NovelPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [activeTab, setActiveTab] = useState('chapters');
+  const [relatedNovels, setRelatedNovels] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/novel/${novelId}`)
@@ -28,7 +29,16 @@ function NovelPage() {
       .catch(err => console.error('Failed searching for chapters:', err));
   }, [novelId, currentPage]);
 
-  if (!novel) return <div className="text-center text-white">Loading</div>;
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/novels')
+      .then(res => {
+        const filtered = res.data.filter(n => n.id !== parseInt(novelId)).slice(0, 6);
+        setRelatedNovels(filtered);
+      })
+      .catch(err => console.error('Erro ao carregar recomendações:', err));
+  }, [novelId]);
+
+  if (!novel) return <div className="text-center text-black">Loading</div>;
 
   const renderPagination = () => {
     const pageButtons = [];
@@ -96,6 +106,7 @@ function NovelPage() {
           <p className="mb-1"><span className="font-semibold">Author:</span> {novel.author}</p>
           <p className="mb-1"><span className="font-semibold">Status:</span> {novel.status}</p>
           <p className="mb-1"><span className="font-semibold">Categories:</span> {Array.isArray(novel.categories) ? novel.categories.join(', ') : novel.categories}</p>
+          <p className="mb-1 "><span className="font-semibold">Tags:</span> {novel.tags}</p>
           <p className="mb-1"><span className="font-semibold">Chapters:</span> {novel.chapter_count}</p>
           <div className="flex flex-wrap gap-3 mt-4">
             <a
@@ -139,7 +150,28 @@ function NovelPage() {
           {novel.synopsis}
         </div>
       )}
+      {/* You might also like section */}
+      <div className="mt-10">
+        <h2 className="text-xl font-semibold mb-4 text-black">You might also like:</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          {relatedNovels.map(novel => (
+            <a
+              key={novel.id}
+              href={`/novel/${novel.id}`}
+              className="flex flex-col items-center bg-white  rounded shadow hover:shadow-md transition"
+            >
+              <img
+                src={`http://localhost:8000/storage/${novel.cover_path}`}
+                alt={novel.title}
+                className="w-full h-[180px] object-cover mb-2"
+              />
+              <span className="text-sm font-medium text-left text-black line-clamp-2">{novel.title}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </div>
+
   );
 }
 

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '4957fb56cc2940ebcff804731d036b4d1bae2a70',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -140,9 +140,9 @@
             'dev_requirement' => true,
         ),
         'filp/whoops' => array(
-            'pretty_version' => '2.18.1',
-            'version' => '2.18.1.0',
-            'reference' => '8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26',
+            'pretty_version' => '2.18.2',
+            'version' => '2.18.2.0',
+            'reference' => '89dabca1490bc77dbcab41c2b20968c7e44bf7c3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../filp/whoops',
             'aliases' => array(),
@@ -425,9 +425,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '4957fb56cc2940ebcff804731d036b4d1bae2a70',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

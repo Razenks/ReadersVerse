@@ -21,3 +21,5 @@ Route::get('/chapters/recent', [GetNovelsController::class, 'getRecentChapters']
 Route::get('/novels/category/{category}', [GetNovelsController::class, 'getNovelsByCategory']);
 Route::get('/novels', [NovelController::class, 'listNovels']);
 Route::get('/filterNovels', [FilterCategories::class, 'filterNovels']);
+Route::get('/recent-updates', [GetNovelsController::class, 'recentlyUpdatedNovels']);
+Route::get('/tags/{tag}', [GetNovelsController::class, 'getNovelsByTag']);

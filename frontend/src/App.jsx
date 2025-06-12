@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Index from './pages/Index.jsx'; // Certifique-se que o caminho está certo
+import Index from './pages/Index.jsx';
 import Terms from './pages/Terms.jsx';
 import Dmca from './pages/Dmca.jsx';
 import Privacy from './pages/Privacy.jsx';
@@ -12,6 +12,9 @@ import AdminRoute from './components/Admin_route.jsx';
 import Add_novels from './pages/Add_novels.jsx';
 import Novel from './pages/Novel.jsx';
 import Chapter from './pages/Chapter.jsx';
+import NovelsUpdated from './pages/NovelsUpdated';
+import Tags from './pages/Tags.jsx';
+import NovelsByTag from './pages/NovelByTags';
 import './index.css';
 
 
@@ -34,6 +37,9 @@ function App() {
         </AdminRoute>
       } />
       <Route path="/chapter/:chapterId" element={<Chapter />} />
+      <Route path="/novelsUpdated" element={<NovelsUpdated />} />
+      <Route path="/tags" element={<Tags/>} />
+      <Route path="/tags/:tag" element={<NovelsByTag />} />
     </Routes>
   );
 }

@@ -6,7 +6,7 @@ function PopularNovels() {
         <section className="pt-9 px-2 sm:px-6 lg:px-16 mt-6 md:ml-[20px] w-full">
             {/* Carousel Most Popular */}
             <div className="flex justify-between items-center pr-4">
-                <h2 className="text-2xl font-semibold mb-4">Popular Novels</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-gray-800">Popular Novels</h2>
                 <button className="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 ">See More</button>
             </div>
 

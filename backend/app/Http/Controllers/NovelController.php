@@ -23,6 +23,7 @@ class NovelController extends Controller
                 'status' => 'required|string',
                 'author' => 'required|string',
                 'categories' => 'required|string',
+                'tags' => 'required|string',
                 'epub' => 'required|file|mimes:epub',
                 'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
             ]);
@@ -33,6 +34,12 @@ class NovelController extends Controller
             }
 
             $categoriesArray = json_decode($request->categories, true);
+            $tagsArray = json_decode($request->tags, true);
+
+            if (!is_array($categoriesArray) || !is_array($tagsArray)) {
+                throw new \Exception('Formato inválido para categorias ou tags.');
+            }
+
             $epubPath = $request->file('epub')->store('epubs');
             $epubFile = storage_path('app/' . $epubPath);
             $chapters = $this->extractChaptersFromEpub($epubFile);
@@ -42,27 +49,15 @@ class NovelController extends Controller
                 throw new \Exception("Nenhum capítulo extraído do EPUB.");
             }
 
-            $novelData = $request->only([
-                'title',
-                'synopsis',
-                'status',
-                'author'
-            ]);
-
-            $decodedCategories = json_decode($request->categories, true);
-
-            if (!is_array($decodedCategories)) {
-                throw new \Exception('Formato inválido para categorias.');
-            }
-
-            $novelData['categories'] = implode(',', $decodedCategories);
+            $novelData = $request->only(['title', 'synopsis', 'status', 'author']);
+            $novelData['categories'] = implode(',', $categoriesArray);
+            $novelData['tags'] = implode(',', $tagsArray);
             $novelData['cover_path'] = $coverPath;
             $novelData['chapter_count'] = 0;
 
             $novel = Novel::create($novelData);
 
             $chapterData = [];
-
             foreach ($chapters as $index => $ch) {
                 $chapterData[] = [
                     'novel_id' => $novel->id,
@@ -74,17 +69,13 @@ class NovelController extends Controller
                 ];
             }
 
-            Chapter::insert($chapterData); // Inserção em massa
+            Chapter::insert($chapterData);
             $novel->chapter_count = count($chapterData);
             $novel->save();
 
-
             return response()->json(['message' => 'Novel cadastrada com sucesso!'], 200);
         } catch (\Exception $e) {
-            // Loga o erro para você ver no Laravel log
             Log::error('Erro ao adicionar novel', ['error' => $e->getMessage()]);
-
-            // Retorna erro com CORS funcionando
             return response()->json([
                 'message' => 'Erro interno no servidor',
                 'error' => $e->getMessage()
@@ -136,7 +127,7 @@ class NovelController extends Controller
     public function listNovels()
     {
         try {
-            $novels = Novel::select('id', 'title', 'cover_path', 'status', 'author')
+            $novels = Novel::select('id', 'title', 'cover_path', 'status', 'author', 'tags')
                 ->orderBy('created_at', 'desc')  // Mais recentes primeiro
                 ->limit(6)                     // Limita a 6 novels
                 ->get();
