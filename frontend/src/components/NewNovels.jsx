@@ -11,7 +11,7 @@ function NewNovels() {
     const { novelId } = useParams();
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/novels')
+        fetch('/api/novels')
             .then(res => {
                 if (!res.ok) throw new Error('Erro ao carregar novels');
                 return res.json();
@@ -48,32 +48,40 @@ function NewNovels() {
             </div>
 
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-4 pt-4">
-                {novels.map((novel) => (
-                    <Link to={`/novel/${novel.id}`} key={novel.id} className="block">
-                        <div className="flex flex-col items-center lg:w-[153px] transition cursor-pointer">
-                            <div className="relative w-full rounded-sm shadow-md overflow-hidden">
-                                <img
-                                    src={
-                                        novel.cover_path
-                                            ? `http://localhost:8000/storage/${novel.cover_path}`
-                                            : '/default-cover.jpeg'
-                                    }
-                                    alt={`Capa da Novel ${novel.title}`}
-                                    className="w-full h-full w-[105px] h-[140px] lg:w-[157px] lg:h-[210px] object-cover"
-                                />
-                                <span className="absolute top-1 left-1 bg-blue-600 text-white text-[10px] px-1 py-0.5 rounded">
-                                    {novel.status.toUpperCase()}
+                {novels.map((novel) => {
+                    let statusColor = 'bg-gray-500';
+
+                    if (novel.status === 'completed') statusColor = 'bg-green-600';
+                    else if (novel.status === 'ongoing') statusColor = 'bg-blue-600';
+                    else if (novel.status === 'finished') statusColor = 'bg-red-600';
+
+                    return (
+                        <Link to={`/novel/${novel.id}`} key={novel.id} className="block">
+                            <div className="flex flex-col items-center lg:w-[153px] transition cursor-pointer">
+                                <div className="relative w-full rounded-sm shadow-md overflow-hidden">
+                                    <img
+                                        src={
+                                            novel.cover_path
+                                                ? `./storage/${novel.cover_path}`
+                                                : '/default-cover.jpeg'
+                                        }
+                                        alt={`Capa da Novel ${novel.title}`}
+                                        className="w-full h-full w-[105px] h-[140px] lg:w-[157px] lg:h-[210px] object-cover"
+                                    />
+                                    <span className={`absolute top-1 left-1 ${statusColor} text-white text-[10px] px-1 py-0.5 rounded`}>
+                                        {novel.status.toUpperCase()}
+                                    </span>
+                                </div>
+                                <span className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">
+                                    {novel.title}
+                                </span>
+                                <span className="text-[11px] text-gray-500 text-left truncate w-full">
+                                    {novel.author || 'Autor desconhecido'}
                                 </span>
                             </div>
-                            <span className="mt-1 text-[13px] font-semibold text-left break-words overflow-hidden line-clamp-2 w-full">
-                                {novel.title}
-                            </span>
-                            <span className="text-[11px] text-gray-500 text-left truncate w-full">
-                                {novel.author || 'Autor desconhecido'}
-                            </span>
-                        </div>
-                    </Link>
-                ))}
+                        </Link>
+                    );
+                })}
             </div>
         </section>
     );

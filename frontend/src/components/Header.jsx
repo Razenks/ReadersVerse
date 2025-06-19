@@ -8,32 +8,23 @@ import '../index.css';
 function Header() {
     const { user, logout } = useAuth();
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem('theme') === 'dark';
-    });
+    const [searchQuery, setSearchQuery] = useState('');
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [darkMode]);
 
     const toggleSidebar = () => setMobileOpen(prev => !prev);
     const handleLogout = () => {
         logout();
         navigate('/');
     };
-    const toggleTheme = () => {
-        setDarkMode(prev => {
-            const newTheme = !prev;
-            localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-            return newTheme;
-        });
-    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+            setSearchQuery('');
+        }
+    }
 
     return (
         <header className="flex items-center bg-white justify-between px-4 py-4 shadow-md w-full text-gray-800 ">
@@ -44,14 +35,16 @@ function Header() {
             </Link>
 
             <nav className="hidden md:flex flex-grow justify-center space-x-5 text-sm">
-                <div className="flex items-center space-x-1">
-                    <Search className="w-4 h-4" />
+                <form onSubmit={handleSearch} className="flex items-center space-x-1">
+                    <Search className="w-4 h-4" onClick={handleSearch} />
                     <input
                         type="text"
                         placeholder="Search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                         className="border border-gray-500 rounded-md px-2 py-1 text-sm w-40"
                     />
-                </div>
+                </form>
                 <Link to="/categories" className="flex items-center space-x-1">
                     <Grid className="w-4 h-4" /><span>Categories</span>
                 </Link>
@@ -61,8 +54,8 @@ function Header() {
                 <Link to="/NovelsUpdated" className="flex items-center space-x-1">
                     <RefreshCw className="w-4 h-4" /><span>Updates</span>
                 </Link>
-                <button onClick={toggleTheme} className="border border-gray-500 rounded px-1 py-1">
-                    {darkMode ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5 text-black" />}
+                <button  className="border border-gray-500 rounded px-1 py-1">
+                    <Sun className="w-5 h-5 text-yellow-500 hidden" /> <Moon className="w-5 h-5 text-black" />
                 </button>
             </nav>
 
@@ -89,9 +82,16 @@ function Header() {
                 <nav className="flex flex-col space-y-4 text-sm">
                     <span className="text-sm font-semibold">Enjoy your Web-Novels here!!!</span>
                     {user && <span className="font-bold">Hello, {user.name}</span>}
-                    <Link to="#" className="flex items-center space-x-2 md:hidden">
+                    <form onSubmit={handleSearch} className="flex items-center space-x-2 md:hidden">
                         <Search className="w-4 h-4" /><span>Search</span>
-                    </Link>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-500 rounded-md px-2 py-1 text-sm w-[95px]"
+                        />
+                    </form>
                     <Link to="#" className="flex items-center space-x-2">
                         <Book className="w-4 h-4" /><span>Library</span>
                     </Link>
@@ -117,8 +117,8 @@ function Header() {
                             </Link>
                         )}
                     </div>
-                    <button onClick={toggleTheme} className="flex items-center md:hidden">
-                        {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                    <button  className="flex items-center md:hidden">
+                        <Sun className="w-4 h-4 hidden" />  <Moon className="w-4 h-4" />
                         <span className="ml-2">Dark Mode</span>
                     </button>
 

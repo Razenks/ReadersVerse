@@ -6,29 +6,14 @@ import { formatDistanceToNowStrict } from 'date-fns';
 
 function NovelsByTag() {
   const { tag } = useParams();
-  const { novelId } = useParams();
   const [novels, setNovels] = useState([]);
-  const [chapters, setChapters] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/tags/${encodeURIComponent(tag)}`)
+    fetch(`/api/tags/${encodeURIComponent(tag)}`)
       .then(res => res.json())
       .then(data => setNovels(data))
       .catch(err => console.error('Erro ao buscar novels por tag:', err));
   }, [tag]);
-
-  useEffect(() => {
-    if (novelId) {
-      axios.get(`http://localhost:8000/api/novel/${novelId}/chapters?page=${currentPage}`)
-        .then(res => {
-          setChapters(res.data.data);
-          setTotalPages(res.data.last_page);
-        })
-        .catch(err => console.error(err));
-    }
-  }, [novelId, currentPage]);
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-6">
@@ -41,13 +26,14 @@ function NovelsByTag() {
           let statusColor = 'text-gray-600';
 
           if (novel.status === 'completed') statusColor = 'text-green-600';
-          else if (novel.status === 'ongoing') statusColor = 'text-red-600';
+          else if (novel.status === 'ongoing') statusColor = 'text-blue-600';
+          else if (novel.status === 'finished') statusColor = 'text-red-600';
 
 
           return (
-            <Link key={novel.id} to={`/novel/${novel.id}`} className="flex w-[400px]">
+            <Link key={novel.id} to={`/novel/${novel.id}`} className="flex w-full sm:w-[400px]">
               <img
-                src={`http://localhost:8000/storage/${novel.cover_path}`}
+                src={`./storage/${novel.cover_path}`}
                 alt={novel.title}
                 className="w-[105px] h-[140px] lg:w-[130px] lg:h-[180px] object-cover mr-4 shrink-0"
               />
@@ -63,7 +49,9 @@ function NovelsByTag() {
                     unit: 'hour',
                   })}
                 </div>
-                <p className="mb-1 text-sm text-left flex"><span className="font-semibold"><BookOpen className="w5 h-5"/></span>{novel.chapter_count}Chapters</p>
+
+                <p className="mb-1 text-sm text-left flex"><span className="font-semibold"><BookOpen className="w-5 h-5 mr-1" /></span> {novel.chapter_count} Chapters</p>
+
                 <p className="text-sm">
                   Status: <span className={`ml-1 font-bold ${statusColor}`}>{novel.status}</span>
                 </p>

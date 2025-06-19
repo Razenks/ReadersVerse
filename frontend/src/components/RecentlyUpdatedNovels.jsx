@@ -10,7 +10,7 @@ function RecentUpdates() {
     const [lastPage, setLastPage] = useState(1);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/recent-updates?page=${currentPage}`)
+        axios.get(`/api/recent-updates?page=${currentPage}`)
             .then(res => {
                 setNovels(res.data.data);
                 setLastPage(Math.min(res.data.last_page, 10));
@@ -48,29 +48,37 @@ function RecentUpdates() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {novels.map((novel) => (
-                    <Link to={`/novel/${novel.id}`} key={novel.id} className="flex bg-white border shadow rounded overflow-hidden">
-                        <img
-                            src={`http://localhost:8000/storage/${novel.cover_path}`}
-                            alt={novel.title}
-                            className="w-[80px] h-[120px] object-cover flex-shrink-0"
-                        />
-                        <div className="p-3 flex flex-col justify-between">
-                            <h3 className="font-semibold text-lg line-clamp-2">{novel.title}</h3>
-                            <div className="flex text-sm text-gray-600 items-center gap-1">
-                                <User className="w-4 h-4" />
-                                <span>{novel.author}</span>
+                {novels.map((novel) => {
+                    let statusColor = 'text-gray-600';
+
+                    if (novel.status === 'completed') statusColor = 'text-green-600';
+                    else if (novel.status === 'ongoing') statusColor = 'text-blue-600';
+                    else if (novel.status === 'finished') statusColor = 'text-red-600';
+
+                    return (
+                        <Link to={`/novel/${novel.id}`} key={novel.id} className="flex bg-white border shadow rounded overflow-hidden">
+                            <img
+                                src={`./storage/${novel.cover_path}`}
+                                alt={novel.title}
+                                className="w-[80px] h-[120px] object-cover flex-shrink-0"
+                            />
+                            <div className="p-3 flex flex-col justify-between">
+                                <h3 className="font-semibold text-lg line-clamp-2">{novel.title}</h3>
+                                <div className="flex text-sm text-gray-600 items-center gap-1">
+                                    <User className="w-4 h-4" />
+                                    <span>{novel.author}</span>
+                                </div>
+                                <div className="flex items-center text-gray-600 text-sm space-x-2">
+                                    <Calendar className="w-4 h-4" />
+                                    <span>
+                                        Updated {formatDistanceToNowStrict(new Date(novel.updated_at))} ago
+                                    </span>
+                                </div>
+                                <span className={`text-sm font-bold ${statusColor}`}>{novel.status}</span>
                             </div>
-                            <div className="flex items-center text-gray-600 text-sm space-x-2">
-                                <Calendar className="w-4 h-4" />
-                                <span>
-                                    Updated {formatDistanceToNowStrict(new Date(novel.updated_at))} ago
-                                </span>
-                            </div>
-                            <span className="text-xs text-gray-500">{novel.status}</span>
-                        </div>
-                    </Link>
-                ))}
+                        </Link>
+                    );
+                })}
             </div>
 
             {/* Paginação */}

@@ -8,7 +8,7 @@ function RecentlyUpdated() {
     const [chapters, setChapters] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/chapters/recent')
+        axios.get('/api/chapters/recent')
             .then(res => setChapters(res.data))
             .catch(err => console.error('Failed to Search Recently Chapters:', err));
     }, []);

@@ -1,86 +1,96 @@
 import React, { useState } from 'react';
 
-function ContactUs() {
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        message: '',
-    });
+function ContactUsPage() {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Aqui você pode enviar os dados via API ou e-mail
-        console.log('Formulário enviado:', form);
-        alert('Mensagem enviada com sucesso!');
-        setForm({ name: '', email: '', message: '' });
-    };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <main className="px-6 py-10 max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
-            <p className="text-gray-600 mb-8">
-                If you have any questions, suggestions, or just want to say hello, feel free to contact us by filling out the form below.
-            </p>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aqui você pode integrar com API ou backend
+    console.log(form);
+    setSubmitted(true);
+  };
 
-            <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 shadow-md rounded">
-                <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                    />
-                </div>
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
+          Contact Us
+        </h2>
+        <p className="text-gray-600 text-center mb-10">
+          If you have any questions, feedback, or suggestions, feel free to reach out to us!
+        </p>
 
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                    />
-                </div>
+        {submitted ? (
+          <div className="text-center text-green-600 text-lg font-semibold">
+            Thank you for your message! We'll get back to you soon.
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                value={form.name}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+              />
+            </div>
 
-                <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                        Message
-                    </label>
-                    <textarea
-                        id="message"
-                        name="message"
-                        value={form.message}
-                        onChange={handleChange}
-                        required
-                        rows="5"
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                    />
-                </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                value={form.email}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+              />
+            </div>
 
-                <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
-                    Send Message
-                </button>
-            </form>
-        </main>
-    );
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                Message
+              </label>
+              <textarea
+                name="message"
+                rows="5"
+                required
+                value={form.message}
+                onChange={handleChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+              ></textarea>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default ContactUs;
+export default ContactUsPage;

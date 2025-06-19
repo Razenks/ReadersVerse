@@ -5,15 +5,22 @@ import '../index.css';
 
 function NovelTextPage() {
   const { chapterId } = useParams();
+  const { novelId } = useParams();
   const [chapter, setChapter] = useState(null);
   const [fontSize, setFontSize] = useState(16);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios.get(`http://localhost:8000/api/chapter/${chapterId}`)
+    axios.get(`/api/chapter/${chapterId}`)
       .then(res => setChapter(res.data))
       .catch(err => console.error('Failed to fetch chapter:', err));
   }, [chapterId]);
+
+  useEffect(() => {
+    axios.get(`/api/novel/${novelId}`)
+      .then(res => setNovel(res.data))
+      .catch(err => console.error(err));
+  }, [novelId]);
 
   const increaseFont = () => setFontSize(f => Math.min(f + 2, 32));
   const decreaseFont = () => setFontSize(f => Math.max(f - 2, 12));

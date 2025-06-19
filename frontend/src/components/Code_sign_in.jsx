@@ -12,7 +12,7 @@ function Code_sign_in() {
 
     const handleVerifyLogin = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/verifyCodeLogin', {
+            const response = await fetch('/api/verifyCodeLogin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, code }),

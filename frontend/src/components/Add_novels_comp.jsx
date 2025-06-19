@@ -12,7 +12,7 @@ function AddNovelsForm() {
     const [currentTagPage, setCurrentTagPage] = useState(1);
 
     const categories = [
-        "Fan-Fiction", "Billionaire", "Douluo", "Faloo", "Dragon Ball", "Football", "NBA", "Marvel", "Pokemon",
+        "Fan-Fiction", "Billionair", "Douluo", "Faloo", "Dragon Ball", "Football", "NBA", "Marvel", "Pokemon",
         "Elf", "Hogwarts", "System", "Naruto", "One Piece", "Villain", "Sign in", "Derivative Fanfic", "Hot", "Action",
         "Adventure", "Anime", "Comedy", "Systemflow", "Competitive Sports", "Contemporary Romance", "Detective", "Drama",
         "Eastern Fantasy", "Ecchi", "Fantasy", "Fantasy Romance", "Game", "Gender Bender", "Harem", "Historical",
@@ -50,7 +50,7 @@ function AddNovelsForm() {
         formData.append('epub', epubFile);
         formData.append('cover', coverFile);
 
-        fetch('http://localhost:8000/api/addNovels', {
+        fetch('/api/addNovels', {
             method: 'POST',
             body: formData
         })
@@ -187,6 +187,30 @@ function AddNovelsForm() {
                             </button>
                         ))}
                     </div>
+
+                    {selectedTags.length > 0 && (
+                        <div className="mt-4">
+                            <p className="font-semibold mb-1">Tags Selecionadas:</p>
+                            <div className="flex flex-wrap gap-2">
+                                {selectedTags.map((tag, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex items-center bg-green-100 text-green-700 px-3 py-1 rounded-full"
+                                    >
+                                        <span className="mr-2">{tag}</span>
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleTag(tag)}
+                                            className="text-red-500 hover:text-red-700 font-bold"
+                                            aria-label={`Remover ${tag}`}
+                                        >
+                                            ×
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     <div className="flex items-center gap-1 mt-2">
                         <button type="button" onClick={() => setCurrentTagPage(1)} disabled={currentTagPage === 1}>«</button>

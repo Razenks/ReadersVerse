@@ -10,7 +10,7 @@ function Enter_code() {
 
     const handleVerify = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/verifyCode', {
+            const response = await fetch('/api/verifyCode', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, code }),

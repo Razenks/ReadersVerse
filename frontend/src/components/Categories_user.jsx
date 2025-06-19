@@ -12,7 +12,7 @@ function Categories_user() {
     const [novels, setNovels] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/filterNovels', {
+        axios.get('/api/filterNovels', {
             params: {
                 categories: selectedCategories,
                 status: selectedStatus,
@@ -127,7 +127,7 @@ function Categories_user() {
                         className="flex bg-white border rounded-lg shadow-md hover:shadow-lg w-full sm:w-[48%] lg:w-[32%] h-[130px] transition"
                     >
                         <img
-                            src={`http://localhost:8000/storage/${novel.cover_path}`}
+                            src={`./storage/${novel.cover_path}`}
                             alt={novel.title}
                             className="w-[90px] h-full object-cover rounded-l-lg"
                         />

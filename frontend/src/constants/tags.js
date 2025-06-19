@@ -5,7 +5,6 @@ const allTags = {
         "AI-chip",
         "Abandoned",
         "AbandonedC",
-        "AbandonedC",
         "Abilities",
         "Ability",
         "AbilitySte",
@@ -26,10 +25,10 @@ const allTags = {
         "AdaptedtoD",
         "AdaptedtoD",
         "AdaptedtoG",
-        "AdaptedtoM",
-        "AdaptedtoM",
-        "AdaptedtoM",
-        "AdaptedtoM",
+        "AdaptedtoManhua",
+        "AdaptedtoManga",
+        "AdaptedtoMovie",
+        "AdaptedtoManhwa",
         "AdaptedtoV",
         "AdoptedChi",
         "AdoptedPro",
@@ -41,7 +40,7 @@ const allTags = {
         "Advancedte",
         "Adventure",
         "Adventurer",
-        "Adventurer",
+        "Adventurers",
         "Aesthetic",
         "Affair",
         "Afterthesh",
@@ -52,8 +51,8 @@ const allTags = {
         "Agedistrib",
         "Agent",
         "AggresiveC",
-        "Aggressive",
-        "Aggressive",
+        "AggressiveCharacter",
+        "AggressiveCharacters",
         "Alchemist",
         "Alchemy",
         "Alien",
@@ -73,9 +72,9 @@ const allTags = {
         "Anal",
         "Ancestors",
         "Ancient",
-        "AncientChi",
-        "AncientChi",
-        "AncientChi",
+        "AncientChinaFanfic",
+        "AncientChinese",
+        "AncientChina",
         "AncientFan",
         "AncientSpi",
         "AncientTim",
@@ -106,8 +105,8 @@ const allTags = {
         "ApatheticP",
         "Apocalypse",
         "Apocalypse",
-        "Appearance",
-        "Appearance",
+        "AppearanceChanges",
+        "AppearanceDifferent",
         "Apprentice",
         "Archery",
         "Aresstream",
@@ -1156,7 +1155,6 @@ const allTags = {
         "interracia"
     ],
     "J": [
-        "J",
         "JOJO",
         "JackieChan",
         "JackofAllT",
@@ -1189,7 +1187,6 @@ const allTags = {
         "\u6559\u6388"
     ],
     "K": [
-        "K",
         "Kidnapping",
         "Killer",
         "KindLoveIn",
@@ -1219,7 +1216,6 @@ const allTags = {
         "\u7a7a\u95f4"
     ],
     "L": [
-        "L",
         "LackofComm",
         "LateRomanc",
         "Lawyers",
@@ -1295,7 +1291,6 @@ const allTags = {
         "luckybag"
     ],
     "M": [
-        "M",
         "MMORPG",
         "Mafia",
         "Mage",
@@ -1474,7 +1469,6 @@ const allTags = {
         "multiplere"
     ],
     "N": [
-        "N",
         "NaiveProta",
         "Nakaji",
         "Narcissist",
@@ -1711,7 +1705,6 @@ const allTags = {
         "puppy"
     ],
     "Q": [
-        "Q",
         "QinHan",
         "Qishen",
         "QiyunFlow",
@@ -1729,7 +1722,6 @@ const allTags = {
         "\u6e05\u7a7f"
     ],
     "R": [
-        "R",
         "R-15",
         "R-18",
         "R18",
@@ -1831,7 +1823,6 @@ const allTags = {
         "\u65e5\u5e38"
     ],
     "S": [
-        "S",
         "SCP",
         "SD",
         "SUBSCRIPTI",
@@ -2038,7 +2029,6 @@ const allTags = {
         "\u5b8b\u671d"
     ],
     "T": [
-        "T",
         "TRPG",
         "TS",
         "TableTenni",
@@ -2156,7 +2146,6 @@ const allTags = {
         "two-waycru"
     ],
     "U": [
-        "U",
         "Ugly",
         "UglyProtag",
         "UglytoBeau",
@@ -2196,7 +2185,6 @@ const allTags = {
         "urbanyouth"
     ],
     "V": [
-        "V",
         "Vampire",
         "Vampires",
         "Variety",
@@ -2216,7 +2204,6 @@ const allTags = {
         "videostrea"
     ],
     "W": [
-        "W",
         "WOW",
         "WW2",
         "War",
@@ -2280,7 +2267,6 @@ const allTags = {
         "\u6587\u91ce"
     ],
     "X": [
-        "X",
         "Xianjun",
         "Xianxia",
         "XianxiaCul",
@@ -2292,7 +2278,6 @@ const allTags = {
         "Xuanhuan"
     ],
     "Y": [
-        "Y",
         "Yancontrol",
         "Yandere",
         "Yaoi",
@@ -2313,7 +2298,6 @@ const allTags = {
         "\u5996\u7cbe"
     ],
     "Z": [
-        "Z",
         "Zerg",
         "Zergs",
         "Zhangmenli",

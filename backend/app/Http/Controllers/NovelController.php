@@ -140,4 +140,80 @@ class NovelController extends Controller
             ], 500);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $novel = Novel::findOrFail($id);
+
+        $novel->title = $request->input('title');
+        $novel->synopsis = $request->input('synopsis');
+        $novel->author = $request->input('author');
+        $novel->status = $request->input('status');
+        $novel->categories = $request->input('categories');
+        $novel->tags = $request->input('tags');
+
+        // Atualiza a capa se tiver nova
+        if ($request->hasFile('cover')) {
+            $cover = $request->file('cover');
+            $coverPath = $cover->store('covers', 'public');
+            $novel->cover_path = $coverPath;
+        }
+
+        $novel->save();
+
+        return response()->json(['message' => 'Novel atualizada com sucesso!']);
+    }
+
+    public function updateChapter(Request $request, $id)
+    {
+        $chapter = Chapter::findOrFail($id);
+
+        $chapter->title = $request->input('title');
+        $chapter->context = $request->input('context');
+
+        if ($request->has('number')) {
+            $chapter->number = $request->input('number');
+        }
+
+        $chapter->save();
+
+        return response()->json(['message' => 'Capítulo atualizado com sucesso!']);
+    }
+
+    public function destroyChapter($id)
+    {
+        $chapter = Chapter::findOrFail($id);
+        $chapter->delete();
+
+        return response()->json(['message' => 'Capítulo removido com sucesso!']);
+    }
+
+    public function destroyNovel($id)
+{
+    $novel = Novel::find($id);
+    if (!$novel) {
+        return response()->json(['error' => 'Novel não encontrada'], 404);
+    }
+
+    // Opcional: remover capítulos ou arquivos relacionados aqui
+
+    $novel->delete();
+    return response()->json(['message' => 'Novel removida com sucesso']);
+}
+
+    public function popular()
+    {
+        $popularNovels = Novel::orderBy('views', 'desc')->take(12)->get();
+        return response()->json($popularNovels);
+    }
+
+    public function show($id)
+    {
+        $novel = Novel::findOrFail($id);
+
+        // Incrementa 1 no campo views (essa linha é fundamental)
+        $novel->increment('views');
+
+        return response()->json($novel);
+    }
 }

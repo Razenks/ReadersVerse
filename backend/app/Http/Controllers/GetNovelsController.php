@@ -94,7 +94,17 @@ class GetNovelsController extends Controller
     public function getNovelsByTag($tag)
     {
         $novels = Novel::where('tags', 'like', "%$tag%")
-            ->select('id', 'title', 'cover_path', 'status', 'author', 'updated_at')
+            ->select('id', 'title', 'cover_path', 'status', 'author', 'updated_at', 'chapter_count') // <-- ADICIONE 'chapter_count' AQUI
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return response()->json($novels);
+    }
+
+    public function getNovelsByName($searchQuery)
+    {
+        $novels = Novel::where('title', 'like', "%$searchQuery%")
+            ->select('id', 'title', 'cover_path', 'status', 'author', 'updated_at', 'chapter_count')
             ->orderBy('updated_at', 'desc')
             ->get();
 

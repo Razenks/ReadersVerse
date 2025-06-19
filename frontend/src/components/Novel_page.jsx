@@ -1,11 +1,14 @@
 // Updated NovelPage Component with Tabs and Paginated Chapter Navigation
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+
 
 const CHAPTERS_PER_PAGE = 100;
 
 function NovelPage() {
+  const { user } = useAuth();
   const { novelId } = useParams();
   const [novel, setNovel] = useState(null);
   const [chapters, setChapters] = useState([]);
@@ -15,13 +18,13 @@ function NovelPage() {
   const [relatedNovels, setRelatedNovels] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/novel/${novelId}`)
+    axios.get(`/api/novel/${novelId}`)
       .then(res => setNovel(res.data))
       .catch(err => console.error('Fail searching for novels:', err));
   }, [novelId]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/novel/${novelId}/chapters?page=${currentPage}`)
+    axios.get(`/api/novel/${novelId}/chapters?page=${currentPage}`)
       .then(res => {
         setChapters(res.data.data);
         setTotalPages(res.data.last_page);
@@ -30,7 +33,7 @@ function NovelPage() {
   }, [novelId, currentPage]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/novels')
+    axios.get('/api/novels')
       .then(res => {
         const filtered = res.data.filter(n => n.id !== parseInt(novelId)).slice(0, 6);
         setRelatedNovels(filtered);
@@ -92,26 +95,58 @@ function NovelPage() {
     );
   };
 
+  const handleDelete = () => {
+    if (window.confirm('Tem certeza que deseja remover esta novel?')) {
+      axios.delete(`/api/novels/${novel.id}`)
+        .then(() => {
+          alert('Novel removida com sucesso.');
+          window.location.href = '/'; // Redireciona para a home
+        })
+        .catch(err => {
+          console.error('Erro ao remover novel:', err);
+          alert('Erro ao remover novel.');
+        });
+    }
+  };
+
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 text-black">
+    <div className="max-w-6xl mx-auto px-4 py-12 text-black">
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-6 pb-6 border-b border-gray-300">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-6 pb-6 border-b border-gray-300 ">
         <img
-          src={`http://localhost:8000/storage/${novel.cover_path}`}
+          src={`./storage/${novel.cover_path}`}
           alt={novel.title}
-          className="w-40 h-60 object-cover rounded-lg shadow-md"
+          className="w-40 h-60 md:w-[300px] md:h-[400px] object-cover rounded-sm shadow-md"
         />
-        <div className="flex-1 dark:text-gray-400 text-black">
-          <h1 className="text-3xl font-bold mb-2">{novel.title}</h1>
+        <div className="flex-1 text-black w-full">
+          <div className='flex flex-row justify-between'>
+            <h1 className="text-3xl font-bold mb-2">{novel.title}</h1>
+            {user?.user_type === 'admin' && (
+              <div className="flex gap-3">
+                <Link to={`/edit-novel/${novel.id}`} className="block">
+                  <button className='bg-green-500 w-[100px] h-[25px] font-bold rounded-sm hover:bg-green-700 hover:text-white'>
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-600 w-[100px] h-[25px] font-bold rounded-sm text-white hover:bg-red-800"
+                >
+                  Remover
+                </button>
+              </div>
+            )}
+          </div>
           <p className="mb-1"><span className="font-semibold">Author:</span> {novel.author}</p>
           <p className="mb-1"><span className="font-semibold">Status:</span> {novel.status}</p>
           <p className="mb-1"><span className="font-semibold">Categories:</span> {Array.isArray(novel.categories) ? novel.categories.join(', ') : novel.categories}</p>
           <p className="mb-1 "><span className="font-semibold">Tags:</span> {novel.tags}</p>
           <p className="mb-1"><span className="font-semibold">Chapters:</span> {novel.chapter_count}</p>
-          <div className="flex flex-wrap gap-3 mt-4">
+          <div className="flex flex-wrap gap-3 mt-5 md:mt-24">
             <a
               href={`/chapter/${chapters[0]?.id || '#'}`}
-              className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition"
+              className="px-4 py-2 bg-blue-600 text-white rounded-sm shadow hover:bg-blue-700 transition"
             >
               📖 Read Chapter 1
             </a>
@@ -138,7 +173,7 @@ function NovelPage() {
                 href={`/chapter/${ch.id}`}
                 className="bg-white border border-gray-300 hover:bg-gray-100 p-4 rounded-lg shadow-sm flex justify-between items-center transition"
               >
-                <span>Chapter {ch.number}: {ch.title}</span>
+                <span>{ch.title}</span>
                 <span className="text-sm text-gray-500">{new Date(ch.created_at).toLocaleDateString()}</span>
               </a>
             ))}
@@ -146,10 +181,11 @@ function NovelPage() {
           {renderPagination()}
         </div>
       ) : (
-        <div className="mt-6 text-gray-400">
+        <div className="mt-6 text-black">
           {novel.synopsis}
         </div>
       )}
+
       {/* You might also like section */}
       <div className="mt-10">
         <h2 className="text-xl font-semibold mb-4 text-black">You might also like:</h2>
@@ -161,11 +197,11 @@ function NovelPage() {
               className="flex flex-col items-center bg-white  rounded shadow hover:shadow-md transition"
             >
               <img
-                src={`http://localhost:8000/storage/${novel.cover_path}`}
+                src={`./storage/${novel.cover_path}`}
                 alt={novel.title}
                 className="w-full h-[180px] object-cover mb-2"
               />
-              <span className="text-sm font-medium text-left text-black line-clamp-2">{novel.title}</span>
+              <span className="text-sm font-medium text-left text-black line-clamp-2 p-1">{novel.title}</span>
             </a>
           ))}
         </div>
